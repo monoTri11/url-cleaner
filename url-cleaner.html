@@ -2,70 +2,69 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>URL Cleaner</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0c0c0f;--sur:#13131a;--b:#1e1e2e;--bb:#2e2e4e;--t:#e8e8f0;--m:#6b6b8a;--a:#7fff6e;--ad:rgba(127,255,110,.12);--ag:rgba(127,255,110,.25);--r:#ff6e7f;--rd:rgba(255,110,127,.12);--y:#ffe169}
-html,body{height:100%;background:var(--bg);color:var(--t);font-family:'Courier New',monospace;font-size:14px;line-height:1.6}
-body{display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:48px 20px 80px;position:relative;overflow-x:hidden}
+html,body{height:100%;background:var(--bg);color:var(--t);font-family:'Courier New',monospace;font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
+body{display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:28px 16px 60px;position:relative;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(127,255,110,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(127,255,110,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
 body::after{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(127,255,110,.06) 0%,transparent 70%);pointer-events:none;z-index:0}
 .c{position:relative;z-index:1;width:100%;max-width:760px}
-header{margin-bottom:48px}
-.ey{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:12px;font-weight:500}
-h1{font-size:clamp(32px,6vw,52px);font-weight:800;line-height:1;letter-spacing:-.02em}
+header{margin-bottom:24px}
+.ey{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:8px;font-weight:500}
+h1{font-size:clamp(26px,7vw,52px);font-weight:800;line-height:1;letter-spacing:-.02em}
 h1 span{color:var(--a)}
-.sub{margin-top:12px;color:var(--m);font-size:13px;font-style:italic}
+.sub{margin-top:8px;color:var(--m);font-size:12px;font-style:italic}
 .lbl{display:block;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
-textarea{width:100%;min-height:100px;background:var(--sur);border:1px solid var(--b);border-radius:6px;color:var(--t);font-family:'Courier New',monospace;font-size:13px;line-height:1.6;padding:14px 16px;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s;word-break:break-all;margin-bottom:8px}
+textarea{width:100%;min-height:88px;background:var(--sur);border:1px solid var(--b);border-radius:8px;color:var(--t);font-family:'Courier New',monospace;font-size:16px;line-height:1.5;padding:12px 14px;resize:vertical;outline:none;transition:border-color .2s,box-shadow .2s;word-break:break-all;margin-bottom:10px;-webkit-appearance:none;appearance:none}
 textarea:focus{border-color:var(--bb);box-shadow:0 0 0 3px var(--ad)}
 textarea::placeholder{color:var(--m);font-style:italic}
-.ctrls{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap}
-.btn{font-family:'Courier New',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:4px;padding:10px 20px;cursor:pointer;transition:all .15s;white-space:nowrap}
-.bp{background:var(--a);color:#0c0c0f;font-weight:500}
-.bp:hover{background:#9fffb0;box-shadow:0 0 16px var(--ag)}
-.bp:active{transform:scale(.97)}
+.ctrls{display:grid;grid-template-columns:1fr auto auto;gap:8px;margin-bottom:16px}
+.btn{font-family:'Courier New',monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:8px;padding:13px 16px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.bp{background:var(--a);color:#0c0c0f;font-weight:700}
+.bp:active{background:#9fffb0}
 .bg{background:transparent;color:var(--m);border:1px solid var(--b)}
-.bg:hover{border-color:var(--bb);color:var(--t)}
+.bg:active{border-color:var(--bb);color:var(--t)}
 #out{display:none}
-#out.v{display:block;animation:fi .25s ease}
-@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+#out.v{display:block;animation:fi .2s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .oh{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px}
 .ol,.pt,.lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--m)}
 .bx{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
 .bg2{background:var(--ad);color:var(--a);border:1px solid rgba(127,255,110,.2)}
 .br{background:var(--rd);color:var(--r);border:1px solid rgba(255,110,127,.2)}
-.ou{background:var(--sur);border:1px solid var(--b);border-left:3px solid var(--a);border-radius:6px;padding:14px 16px;font-size:13px;word-break:break-all;color:var(--a);margin-bottom:16px}
-.ps{margin-bottom:28px}
-.pt{margin-bottom:10px}
+.ou{background:var(--sur);border:1px solid var(--b);border-left:3px solid var(--a);border-radius:8px;padding:12px 14px;font-size:13px;word-break:break-all;color:var(--a);margin-bottom:14px}
+.ps{margin-bottom:18px}
+.pt{margin-bottom:8px}
 .pg{display:flex;flex-wrap:wrap;gap:6px}
 .tag{font-size:11px;padding:4px 10px;border-radius:3px;background:var(--rd);color:var(--r);border:1px solid rgba(255,110,127,.15);text-decoration:line-through;text-decoration-color:rgba(255,110,127,.4)}
 .tag.k{background:rgba(100,100,200,.1);color:#9090ff;border:1px solid rgba(100,100,200,.2);text-decoration:none}
-hr{border:none;border-top:1px solid var(--b);margin:32px 0}
-.cs{margin-bottom:28px}
-.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;cursor:pointer;user-select:none}
+hr{border:none;border-top:1px solid var(--b);margin:18px 0}
+.cs{margin-bottom:16px}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:6px 0;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .ct{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--m);display:flex;align-items:center;gap:8px}
 .arr{color:var(--m);transition:transform .2s;font-size:10px}
 .arr.o{transform:rotate(90deg)}
-.cb{display:none}
+.cb{display:none;margin-top:6px}
 .cb.o{display:block}
 .cr{display:flex;gap:8px;margin-bottom:10px}
-.cr input{flex:1;background:var(--sur);border:1px solid var(--b);border-radius:4px;color:var(--t);font-family:'Courier New',monospace;font-size:12px;padding:8px 12px;outline:none;transition:border-color .2s}
+.cr input{flex:1;background:var(--sur);border:1px solid var(--b);border-radius:8px;color:var(--t);font-family:'Courier New',monospace;font-size:16px;padding:11px 13px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
 .cr input:focus{border-color:var(--bb)}
 .cr input::placeholder{color:var(--m)}
 .ctags{display:flex;flex-wrap:wrap;gap:6px}
-.ctag{display:flex;align-items:center;gap:6px;font-size:11px;padding:4px 8px 4px 10px;border-radius:3px;background:rgba(255,225,105,.08);color:var(--y);border:1px solid rgba(255,225,105,.2)}
-.ctag button{background:none;border:none;color:rgba(255,225,105,.5);cursor:pointer;font-size:14px;line-height:1;padding:0;transition:color .15s}
-.ctag button:hover{color:var(--y)}
-.cp{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:transparent;border:1px solid var(--b);border-radius:4px;color:var(--m);padding:5px 12px;cursor:pointer;transition:all .15s;white-space:nowrap}
-.cp:hover,.cp.d{border-color:var(--a);color:var(--a)}
-.cp.d{background:var(--ad)}
-.sr{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:28px}
-.sv{font-size:26px;font-weight:800;line-height:1}
+.ctag{display:flex;align-items:center;gap:6px;font-size:11px;padding:5px 8px 5px 10px;border-radius:4px;background:rgba(255,225,105,.08);color:var(--y);border:1px solid rgba(255,225,105,.2)}
+.ctag button{background:none;border:none;color:rgba(255,225,105,.5);cursor:pointer;font-size:20px;line-height:1;padding:0 2px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.cp{font-family:'Courier New',monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;background:var(--a);color:#0c0c0f;font-weight:700;border:none;border-radius:8px;padding:7px 16px;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.cp:active{background:#9fffb0}
+.cp.d{background:#9fffb0}
+.sr{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.sv{font-size:24px;font-weight:800;line-height:1}
 .sv.g{color:var(--a)}.sv.r{color:var(--r)}.sv.y{color:var(--y)}
-.sl{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--m)}
-footer{margin-top:60px;text-align:center;font-size:11px;color:var(--m);letter-spacing:.05em}
+.sl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--m)}
+footer{margin-top:36px;text-align:center;font-size:11px;color:var(--m);letter-spacing:.04em}
+@media(max-width:400px){.ctrls{grid-template-columns:1fr 1fr}.ctrls .bp{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -73,34 +72,33 @@ footer{margin-top:60px;text-align:center;font-size:11px;color:var(--m);letter-sp
 <header>
 <div class="ey">// local · no server · no tracking</div>
 <h1>URL <span>Cleaner</span></h1>
-<p class="sub">strips analytics &amp; tracking params — runs 100% in your browser</p>
+<p class="sub">strips tracking params — runs 100% in your browser</p>
 </header>
 <label class="lbl" for="ui">Paste URL(s)</label>
-<textarea id="ui" placeholder="https://example.com/page?utm_source=newsletter&utm_medium=email&ref=abc123&#10;&#10;One or more URLs, one per line…" spellcheck="false"></textarea>
+<textarea id="ui" placeholder="https://example.com/?utm_source=email&igsh=abc…" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+<div class="cs">
+<div class="ch" onclick="tog()">
+<span class="ct"><span class="arr" id="ar">&#9658;</span>Custom params to strip</span>
+<span id="cc" style="font-size:11px;color:var(--m)"></span>
+</div>
+<div class="cb" id="cb">
+<div class="cr">
+<input type="text" id="ci" placeholder="e.g. ref, campaign_id…" onkeydown="if(event.key==='Enter')add()" autocomplete="off" autocorrect="off" autocapitalize="off">
+<button class="btn bg" style="padding:11px 14px" onclick="add()">+ Add</button>
+</div>
+<div class="ctags" id="ct"></div>
+</div>
+</div>
 <div class="ctrls">
 <button class="btn bp" onclick="run()">Clean URLs</button>
 <button class="btn bg" onclick="clr()">Clear</button>
 <button class="btn bg" onclick="paste()">Paste</button>
 </div>
-<div class="cs">
-<div class="ch" onclick="tog()">
-<span class="ct"><span class="arr" id="ar">▶</span>Custom params to strip</span>
-<span id="cc" style="font-size:11px;color:var(--m)"></span>
-</div>
-<div class="cb" id="cb">
-<div class="cr">
-<input type="text" id="ci" placeholder="e.g. ref, source, campaign_id…" onkeydown="if(event.key==='Enter')add()">
-<button class="btn bg" style="padding:8px 14px" onclick="add()">+ Add</button>
-</div>
-<div class="ctags" id="ct"></div>
-</div>
-</div>
-<hr>
 <div id="out"><div id="oc"></div></div>
-<footer>all processing happens locally · nothing leaves your device</footer>
+<footer>all processing happens locally &middot; nothing leaves your device</footer>
 </div>
 <script>
-const T=new Set('utm_source utm_medium utm_campaign utm_term utm_content utm_id utm_source_platform utm_creative_format utm_marketing_tactic gclid gclsrc gbraid wbraid gad_source gad gad_campaignid dclid _ga _gl fbclid fb_action_ids fb_action_types fb_source fb_ref msclkid twclid tw_source tw_medium li_fat_id lsrc epik ttclid sclid yclid _hsenc _hsmi hsCtaTracking mc_cid mc_eid mkt_tok kx vgo_ee pi_ad_id pi_campaign_id pi_list_email_id __s _ke tag linkCode linkId ref_ ref affiliate aff partner promo coupon discount source medium campaign adid adgroup keyword placement network device matchtype creative adposition click_id clickid clickref rcid scid subid irclickid impact_ref srsltid sid sessionid session_id trk trkid cm_mmc cm_mmca1 cm_mmca2 zanpid origin igshid oly_anon_id oly_enc_id wickedid vero_id vero_conv rb_clickid cjevent cjdata _branch_match_id otc'.split(' '));
+const T=new Set('utm_source utm_medium utm_campaign utm_term utm_content utm_id utm_source_platform utm_creative_format utm_marketing_tactic gclid gclsrc gbraid wbraid gad_source gad gad_campaignid dclid _ga _gl fbclid fb_action_ids fb_action_types fb_source fb_ref msclkid twclid tw_source tw_medium li_fat_id lsrc epik ttclid sclid yclid _hsenc _hsmi hsCtaTracking mc_cid mc_eid mkt_tok kx vgo_ee pi_ad_id pi_campaign_id pi_list_email_id __s _ke tag linkCode linkId ref_ ref affiliate aff partner promo coupon discount source medium campaign adid adgroup keyword placement network device matchtype creative adposition click_id clickid clickref rcid scid subid irclickid impact_ref srsltid sid sessionid session_id trk trkid cm_mmc cm_mmca1 cm_mmca2 zanpid origin igsh igshid oly_anon_id oly_enc_id wickedid vero_id vero_conv rb_clickid cjevent cjdata _branch_match_id otc'.split(' '));
 let C=new Set();
 const isTrk=k=>{const l=k.toLowerCase();return T.has(l)||C.has(l)||/^utm_|^ga_/.test(l)||/clk?id$/i.test(l)};
 function clean(raw){
@@ -113,44 +111,46 @@ function clean(raw){
   const p=new URLSearchParams();
   u.searchParams.forEach((v,k)=>{if(!isTrk(k))p.append(k,v)});
   const ns=p.toString();
-  let cl=u.origin+u.pathname+(ns?'?'+ns:'')+(u.hash||'');
+  const cl=u.origin+u.pathname+(ns?'?'+ns:'')+(u.hash||'');
   return{o:raw,cl,st,kp,ch:st.length>0};
 }
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+// Store cleaned URLs for copy, keyed by index
+const _urls=[];
 function run(){
   const v=document.getElementById('ui').value.trim();if(!v)return;
   const rs=v.split(/\n+/).map(l=>l.trim()).filter(Boolean).map(clean).filter(Boolean);
   const sec=document.getElementById('out'),oc=document.getElementById('oc');
   if(!rs.length){sec.classList.remove('v');return}
+  _urls.length=0;
   const ts=rs.reduce((s,r)=>s+(r.st?r.st.length:0),0);
   const tk=rs.reduce((s,r)=>s+(r.kp?r.kp.length:0),0);
-  let h=`<div class="sr">
-    <div><div class="sv g">${rs.length}</div><div class="sl">URL${rs.length!=1?'s':''} processed</div></div>
-    <div><div class="sv r">${ts}</div><div class="sl">Param${ts!=1?'s':''} stripped</div></div>
-    <div><div class="sv y">${tk}</div><div class="sl">Param${tk!=1?'s':''} kept</div></div>
-  </div>`;
+  let h='';
   rs.forEach((r,i)=>{
-    if(r.e){h+=`<div style="margin-bottom:20px"><div class="oh"><span class="ol">URL ${i+1}</span><span class="bx br">invalid URL</span></div><div class="ou" style="border-left-color:var(--r);color:var(--r)">${esc(r.o)}</div></div>`;return}
-    h+=`<div style="margin-bottom:24px"><div class="oh"><span class="ol">URL ${i+1}</span><div style="display:flex;gap:8px;align-items:center">${r.ch?`<span class="bx br">−${r.st.length} tracking</span>`:`<span class="bx bg2">already clean</span>`}<button class="cp" id="cp${i}" onclick="cpU('${esc(r.cl).replace(/'/g,"\\'")}',${i})">Copy</button></div></div><div class="ou">${esc(r.cl)}</div>`;
+    _urls[i]=r.cl||'';
+    if(r.e){h+='<div style="margin-bottom:18px"><div class="oh"><span class="ol">URL '+(i+1)+'</span><span class="bx br">invalid URL</span></div><div class="ou" style="border-left-color:var(--r);color:var(--r)">'+esc(r.o)+'</div></div>';return}
+    const badge=r.ch?'<span class="bx br">&#8722;'+r.st.length+' tracking</span>':'<span class="bx bg2">already clean</span>';
+    h+='<div style="margin-bottom:20px"><div class="oh"><span class="ol">URL '+(i+1)+'</span>'+badge+'</div><div class="ou">'+esc(r.cl)+'</div><button class="btn bp" id="cp'+i+'" onclick="cpU('+i+')" style="width:100%;margin-bottom:6px">Copy</button>';
     if(r.st.length||r.kp.length){
-      h+=`<div class="ps"><div class="pt">Parameters</div><div class="pg">`;
-      r.st.forEach(p=>h+=`<span class="tag">${esc(p.split('=')[0])}</span>`);
-      r.kp.forEach(p=>h+=`<span class="tag k">${esc(p.split('=')[0])}</span>`);
-      h+=`</div></div>`;
+      h+='<div class="ps"><div class="pt">Parameters</div><div class="pg">';
+      r.st.forEach(p=>{h+='<span class="tag">'+esc(p.split('=')[0])+'</span>'});
+      r.kp.forEach(p=>{h+='<span class="tag k">'+esc(p.split('=')[0])+'</span>'});
+      h+='</div></div>';
     }
-    h+=`</div>`;
+    h+='</div>';
   });
-  if(rs.filter(r=>!r.e).length>1)h+=`<button class="btn bg" style="width:100%;margin-top:8px" onclick="cpAll()">Copy all cleaned URLs</button>`;
-  oc.innerHTML=h;sec.classList.add('v');sec.scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(rs.filter(r=>!r.e).length>1)h+='<button class="btn bg" style="width:100%;margin-top:4px" onclick="cpAll()">Copy all cleaned URLs</button>';
+  h+='<div class="sr" style="margin-top:20px"><div><div class="sv g">'+rs.length+'</div><div class="sl">URL'+(rs.length!=1?'s':'')+' processed</div></div><div><div class="sv r">'+ts+'</div><div class="sl">Param'+(ts!=1?'s':'')+' stripped</div></div><div><div class="sv y">'+tk+'</div><div class="sl">Param'+(tk!=1?'s':'')+' kept</div></div></div>';
+  oc.innerHTML=h;sec.classList.add('v');
 }
-function cpU(u,i){navigator.clipboard.writeText(u).then(()=>{const b=document.getElementById('cp'+i);if(!b)return;b.textContent='Copied!';b.classList.add('d');setTimeout(()=>{b.textContent='Copy';b.classList.remove('d')},1800)})}
-function cpAll(){const v=document.getElementById('ui').value.trim();if(!v)return;navigator.clipboard.writeText(v.split(/\n+/).map(l=>l.trim()).filter(Boolean).map(clean).filter(r=>r&&!r.e).map(r=>r.cl).join('\n'))}
-function clr(){document.getElementById('ui').value='';document.getElementById('out').classList.remove('v')}
-async function paste(){try{document.getElementById('ui').value=await navigator.clipboard.readText()}catch{}}
+function cpU(i){navigator.clipboard.writeText(_urls[i]).then(()=>{const b=document.getElementById('cp'+i);if(!b)return;b.textContent='Copied!';b.classList.add('d');setTimeout(()=>{b.textContent='Copy';b.classList.remove('d')},1800)})}
+function cpAll(){navigator.clipboard.writeText(_urls.join('\n'))}
+function clr(){document.getElementById('ui').value='';document.getElementById('out').classList.remove('v');_urls.length=0}
+async function paste(){try{document.getElementById('ui').value=await navigator.clipboard.readText();run()}catch{}}
 function tog(){document.getElementById('cb').classList.toggle('o');document.getElementById('ar').classList.toggle('o')}
 function add(){const i=document.getElementById('ci'),v=i.value.trim().toLowerCase().replace(/[^a-z0-9_\-.]/g,'');if(!v)return;C.add(v);i.value='';rct();ucc()}
 function rem(p){C.delete(p);rct();ucc()}
-function rct(){document.getElementById('ct').innerHTML=[...C].map(p=>`<span class="ctag">${esc(p)}<button onclick="rem('${p}')" title="Remove">×</button></span>`).join('')}
+function rct(){document.getElementById('ct').innerHTML=[...C].map(p=>'<span class="ctag">'+esc(p)+'<button onclick="rem(\''+p+'\')" title="Remove">&times;</button></span>').join('')}
 function ucc(){document.getElementById('cc').textContent=C.size?C.size+' custom':''}
 document.getElementById('ui').addEventListener('paste',()=>setTimeout(run,50));
 </script>
